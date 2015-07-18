@@ -1,0 +1,4 @@
+<%= simple_form_for [@autction, @bidit], remote: true do |f| %>
+  <%= f.input :price, label: false, input_html: {placeholder: "bidit"} %>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>

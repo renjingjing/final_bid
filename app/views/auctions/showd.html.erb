@@ -1,0 +1,37 @@
+<h1>Title: <%= @auction.name %></h1>
+Details: <%= @auction.description %>
+Sold By: <%= @auction.user.name %>
+Auction Ends: <%= @auction.end_on %>
+
+<% if @auction.user = current_user %>
+  <%= link_to 'Edit Auction', edit_auction_path(@auction) %>
+  <br>
+  <%= button_to 'Delete Auction', @auction, method: :delete %>
+<% end %>
+
+<% if @auction.bidits.length < 1 %>
+  There is no bids!
+<% else %>
+  <h3>Current Price: $ <%= @auction.current_bidit%> </h3>
+  <% if @auction.reserved_price > @auction.current_bidit %>
+    Reserve not yet met!
+  <% else %>
+    Reserve met!
+  <% end %>
+<% end %>
+
+<h2>Previous Bids:</h2>
+<% @auction.bidits.each do |bid| %>
+  Placed By: <%= bidit.user.name %>
+  <ul>
+    <li>$ <%= bidit.bidit_amount %></li>
+  </ul>
+<% end %>
+
+<hr>
+
+<h2>Place a Bid on <%= @auction.name %></h2>
+<%= form_for(@bid, url: auction_bidits_path(@auction)) do |f| %>
+  Amount: <%= f.number_field :bidit_amount %>
+  <%= f.submit "Save it" %>
+<% end %>

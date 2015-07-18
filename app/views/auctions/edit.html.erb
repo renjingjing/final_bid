@@ -1,0 +1,9 @@
+<h1> Edit Auction </h1>
+
+<%= form_for @auction, url: {action: "update"} do |f| %>
+  Title: <%= f.text_field :name %>
+  Details: <%= f.text_area :description %>
+  Ends On: <%= f.datetime_local_field :end_on %>
+  Reserve Price: <%= f.number_field :reserved_price %>
+<%= f.submit "Save it" %>
+<% end %>

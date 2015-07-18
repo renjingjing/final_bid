@@ -1,0 +1,3 @@
+$("#bidit_price").prepend("<%= j render 'bidit', bidit: @bidit %>");
+<% @bidit = Bidit.new %>
+$("#new_bidit").replaceWith("<%= j render 'form'  %>");

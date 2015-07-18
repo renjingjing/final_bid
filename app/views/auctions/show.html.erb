@@ -1,0 +1,40 @@
+<div >
+<h3>Title: <%= @auction.name %></h3>
+Details: <%= @auction.description %>
+Sold By: <%= @auction.user.full_name %>
+Auction Ends: <%= @auction.end_on %>
+</div>
+<br>
+<div >
+<% if @auction.user = current_user %>
+  <%= link_to 'Edit Auction', edit_auction_path(@auction) %>
+  <br>
+  <%= link_to 'Delete Auction', @auction, method: :delete %>
+<% end %>
+</div>
+
+<div >
+<% if @auction.bidits.length < 1 %>
+   No bids!
+<% else %>
+  <h3>Current Price: $ <%= @auction.current_price %> </h3>
+  <% @auction.reserved_price||=0 %>
+  <% if @auction.reserved_price > @auction.current_price %>
+    Reserve price not met!
+  <% else %>
+    Reserve met!
+  <% end %>
+<% end %>
+</div>
+
+<%= simple_form_for [@auction, @bidit], remote: true, html: {class: "form-horizontal"} do |f| %>
+  <%= f.input :price %>
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>
+
+<h2>Bids</h2>
+<div id="bidits">
+  <% @auction.bidits.each do |bids| %>
+    <%= render "/bidits/bidit", bidit: bids %>
+  <% end %>
+</div>
